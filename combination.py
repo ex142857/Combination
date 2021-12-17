@@ -1,20 +1,14 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov 14 15:41:16 2017
-
-@author: jzj
-"""
-
 import pandas as pd
 import itertools
 
-x=pd.read_csv("receipts.csv")
-list1=list(x['receipt'])
+x=pd.read_excel("data.xlsx",header=0)
+x[-x.input.isin([None])]
+list1=list(x['input'])
 list2=[]
 list3=[]
 goal=x.values[0,1]
 
-tlist=list(x['receipt'])
+tlist=list(x['input'])
 tlist.sort()
 tlist.reverse()
 ti=len(tlist)
@@ -39,6 +33,7 @@ df=pd.concat([df2, df3], axis=1)
 fdf=df[df['sum']>=goal]
 sdf=fdf.sort_values('sum')
 
+
 writer = pd.ExcelWriter('combination.xlsx')
-sdf.to_excel(writer,'Sheet1')
+sdf.iloc[:10,:].to_excel(writer,'Sheet1')
 writer.save()
